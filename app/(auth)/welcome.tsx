@@ -46,17 +46,19 @@ const Welcome = () => {
           </View>
         ))}
       </Swiper>
-      <CustomButton
-        title={index === onboarding.length - 1 ? "Get Started" : "Next"}
-        className="mb-10 rounded-full"
-        onPress={() => {
-          if (index === onboarding.length - 1) {
-            router.replace("/(auth)/sign-up");
-          } else {
-            swiperRef.current?.scrollBy(1);
-          }
-        }}
-      />
+
+      <View className="w-full px-2.5 mb-10">
+        <CustomButton
+          title={index === onboarding.length - 1 ? "Get Started" : "Next"}
+          onPress={() => {
+            if (index === onboarding.length - 1) {
+              router.replace("/(auth)/sign-up");
+            } else {
+              swiperRef.current?.scrollBy(1);
+            }
+          }}
+        />
+      </View>
     </SafeAreaView>
   );
 };

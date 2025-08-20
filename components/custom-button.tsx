@@ -1,15 +1,15 @@
 import React from "react";
 import {
-    ActivityIndicator,
-    Pressable,
-    PressableProps,
-    Text,
-    View,
+  ActivityIndicator,
+  Pressable,
+  PressableProps,
+  Text,
+  View,
 } from "react-native";
 
 interface CustomButtonProps extends Omit<PressableProps, "children"> {
   title?: string;
-  variant?: "primary" | "secondary" | "success" | "danger" | "outlined";
+  variant?: "primary" | "secondary" | "success" | "danger" | "outlined" | "ghost";
   onPress?: () => void;
   disabled?: boolean;
   loading?: boolean;
@@ -35,7 +35,8 @@ const CustomButton = ({
     secondary: "bg-gray-500 active:bg-gray-600",
     success: "bg-green-500 active:bg-green-600",
     danger: "bg-red-500 active:bg-red-600",
-    outlined: "bg-transparent border-2 border-blue-500 active:bg-blue-50",
+    outlined: "bg-transparent border border-gray-200 active:bg-gray-100",
+    ghost : 'bg-transparent hover:bg-blue-50 active:bg-gray-100',
   };
 
   // Text colors
@@ -44,7 +45,8 @@ const CustomButton = ({
     secondary: "text-white",
     success: "text-white",
     danger: "text-white",
-    outlined: "text-blue-500",
+    outlined: "text-gray-800",
+    ghost : "text-gray-800",
   };
 
   return (
@@ -52,8 +54,8 @@ const CustomButton = ({
       onPress={onPress}
       disabled={disabled || loading}
       className={`
-      w-[95%] flex-row items-center justify-center
-        px-6 py-3 rounded-lg
+      w-full flex-row items-center justify-center
+        px-6 py-4 rounded-full
         ${variants[variant]}
         ${disabled || loading ? "opacity-50" : ""}
         ${className}
@@ -99,7 +101,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 // With left icon
 <CustomButton
-  title="Login" 
+  title="Login"
   variant="primary"
   leftIcon={<Icon name="log-in" size={20} color="white" />}
   onPress={() => console.log('Login')}
@@ -108,7 +110,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // Outlined with right icon
 <CustomButton
   title="Next"
-  variant="outlined" 
+  variant="outlined"
   rightIcon={<Icon name="arrow-forward" size={20} color="#3B82F6" />}
   onPress={() => console.log('Next')}
 />
