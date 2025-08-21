@@ -2,13 +2,37 @@ import CustomButton from "@/components/custom-button";
 import InputField from "@/components/input-field";
 import OAuth from "@/components/OAuth";
 import { images } from "@/constants";
-import { Link } from "expo-router";
+import { useSignIn } from "@clerk/clerk-expo";
+import { Link, useRouter } from "expo-router";
 import { LockKeyhole, Mail } from "lucide-react-native";
-import React from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import React, { useCallback, useState } from "react";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 
 const SignIn = () => {
+  const { signIn, setActive, isLoaded } = useSignIn()
+  const router = useRouter()
 
+  const [form, setForm] = useState({ email: '', password: '' })
+
+  const onSignInPress = useCallback(async () => {
+    if (!isLoaded) return
+
+    // Start the sign-in process using the email and password provided
+    try {
+      const signInAttempt = await signIn.create({
+        identifier: form.email,
+        password: form.password,
+      })
+      if (signInAttempt.status === 'complete') {
+        await setActive({ session: signInAttempt.createdSessionId })
+        router.push('/(root)/(tabs)/home')
+      } else {
+        console.error(JSON.stringify(signInAttempt, null, 2))
+      }
+    } catch (err: any) {
+      Alert.alert('Error', err.errors[0].longMessage)
+    }
+  }, [isLoaded, form.email, form.password])
 
 
   return (
@@ -25,7 +49,7 @@ const SignIn = () => {
             Icon={Mail}
             iconStyle={{ color: '#9CA3AF' }}
             placeholder="eg. john@gmaildsdfdf.com"
-            onChangeText={(text) => console.log(text)}
+            onChangeText={(text) => setForm({ ...form, email: text })}
           />
           <InputField
             label="Password"
@@ -33,10 +57,11 @@ const SignIn = () => {
             iconStyle={{ color: '#9CA3AF' }}
             placeholder="********"
             secureTextEntry={true}
+            onChangeText={(text) => setForm({ ...form, password: text })}
           />
 
           {/* Sign Up Button */}
-          <CustomButton title="Sign Up" className="mt-5" />
+          <CustomButton title="Sign In" className="mt-5" onPress={onSignInPress} />
 
           {/* OAuth */}
 

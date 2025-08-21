@@ -1,6 +1,6 @@
-import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
-import { Link } from 'expo-router';
-import { Text, View } from 'react-native';
+import { useUser } from '@clerk/clerk-expo';
+import { Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const Home = () => {
@@ -8,19 +8,9 @@ const Home = () => {
   const { user } = useUser()
 
   return (
-    <View>
-      <SignedIn>
-        <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
-      </SignedIn>
-      <SignedOut>
-        <Link href="/(auth)/sign-in">
-          <Text>Sign in</Text>
-        </Link>
-        <Link href="/(auth)/sign-up">
-          <Text>Sign up</Text>
-        </Link>
-      </SignedOut>
-    </View>
+    <SafeAreaView className='flex-1 bg-white justify-center items-center px-5 gap-5'>
+      <Text className='text-4xl font-JakartaExtraBold'>Nafees Khan</Text>
+    </SafeAreaView>
   );
 };
 
