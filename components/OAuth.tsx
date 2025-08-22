@@ -2,11 +2,19 @@ import { icons } from '@/constants'
 import React from 'react'
 import { Image, Text, View } from 'react-native'
 import CustomButton from './custom-button'
+import AxiosInstance from '@/lib/axios'
+
 
 const OAuth = () => {
 
-    const handleOAuthSignIn = () => {
+    const handleOAuthSignIn = async () => {
         console.log('OAuth Sign In')
+        try {
+            const res = await AxiosInstance.get('/')
+            console.log(res.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (

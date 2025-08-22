@@ -2,6 +2,7 @@ import CustomButton from "@/components/custom-button";
 import InputField from "@/components/input-field";
 import OAuth from "@/components/OAuth";
 import { images } from "@/constants";
+import { UserApi } from "@/services/user";
 import { useSignUp } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
 import { LockKeyhole, Mail, MoveRight, UserRound } from "lucide-react-native";
@@ -51,14 +52,15 @@ const SignUp = () => {
       })
 
       if (signUpAttempt.status === 'complete') {
-        //TODO: Create user in database
+        const res = await UserApi.createUser({ name: form.name, email: form.email, clerkId: signUpAttempt.createdSessionId! })
+        console.log(res)
         await setActive({ session: signUpAttempt.createdSessionId })
         setVerification({ ...verification, status: 'success' })
       } else {
-        setVerification({ ...verification, status: 'failed', error: 'Verification failed' })
+        setVerification({ ...verification, error: 'Verification failed' })
       }
     } catch (err: any) {
-      setVerification({ ...verification, status: 'failed', error: err.errors[0].longMessage })
+      setVerification({ ...verification, error: err.errors[0].longMessage })
     }
   }
 
