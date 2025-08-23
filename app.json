@@ -14,7 +14,13 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyDqXnMKoYanax8TAT64DIpkv6f8pZ35JBA"
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses location to show your position on the map."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -22,7 +28,16 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.RideIt"
+      "package": "com.anonymous.RideIt",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDqXnMKoYanax8TAT64DIpkv6f8pZ35JBA"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -38,10 +53,17 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a7855de3-d308-450a-bb60-6bbe115ef54a"
+      }
     }
   }
 }

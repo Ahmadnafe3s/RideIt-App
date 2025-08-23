@@ -1,6 +1,9 @@
+import GoogleTextInput from '@/components/google-text-input';
+import Map from '@/components/map';
 import RideCard from '@/components/ride-card';
 import { useUser } from '@clerk/clerk-expo';
-import { FlatList, Text } from 'react-native';
+import { LogOut } from 'lucide-react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const rides = [
@@ -14,7 +17,7 @@ const rides = [
     "destination_longitude": "83.985567",
     "ride_time": 391,
     "fare_price": "19500.00",
-    "payment_status": "paid",
+    "payment_status": "unpaid",
     "driver_id": 2,
     "user_id": "1",
     "created_at": "2024-08-12 05:19:20.620007",
@@ -106,12 +109,50 @@ const Home = () => {
 
   const { user } = useUser()
 
+  const handleDestinationPress = () => { }
+
   return (
-    <SafeAreaView className='flex-1'>
+    <SafeAreaView className='flex-1 bg-general-500'>
       <FlatList
+
         data={rides}
-        renderItem={({ item }) => <RideCard ride={item} />}
-        className='px-5'
+        renderItem={({ item }) => <RideCard ride={item as any} />}
+        keyboardShouldPersistTaps='always'
+
+        contentContainerStyle={{
+          paddingBottom: 100,
+          gap: 10,
+          paddingHorizontal: 10
+        }}
+
+        ListHeaderComponent={
+          <View className='flex gap-5'>
+            <View className='mt-5 flex flex-row justify-between'>
+              <Text className='text-2xl font-JakartaSemiBold'>
+                Welcome,{user?.emailAddresses[0].emailAddress.split('@')[0]} 👋
+              </Text>
+
+              <TouchableOpacity>
+                <LogOut color="gray" />
+              </TouchableOpacity>
+            </View>
+
+            <GoogleTextInput
+              containerStyle='bg-white elevation-md elevation-neutral-300'
+              handlePress={handleDestinationPress}
+            />
+
+            <Text className='text-2xl font-JakartaSemiBold'>Your current location</Text>
+
+            <View className='w-full h-[300px] bg-transparent'>
+              <Map />
+            </View>
+
+            <Text className='text-xl font-JakartaBold'>
+              Recent Rides
+            </Text>
+          </View>
+        }
       />
     </SafeAreaView>
   );

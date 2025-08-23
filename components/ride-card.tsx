@@ -1,8 +1,8 @@
-import { View, Text, Image } from 'react-native'
-import React from 'react'
+import { icons } from '@/constants'
 import { Ride } from '@/types/type'
-import { icons, images } from '@/constants'
-import { Mars } from 'lucide-react-native'
+import { formatDate, formatTime } from '@/utils/formatter'
+import React from 'react'
+import { Image, Text, View } from 'react-native'
 
 const RideCard = ({ ride: {
     driver,
@@ -14,13 +14,18 @@ const RideCard = ({ ride: {
     payment_status,
     created_at,
 } }: { ride: Ride }) => {
-    return (
-        <View className='flex gap-5 bg-white p-5'>
-            <View className='flex flex-row gap-5'>
 
-                <View className='bg-pink-500 p-3 rounded-full w-fit'>
-                    <Mars color="white" size={60} />
-                </View>
+
+    return (
+        <View className='flex gap-5 bg-white p-5 shadow-neutral-300 elevation-neutral-300'>
+            {/* Map & routes */}
+            <View className='flex flex-row gap-5'>
+                <Image
+                    source={{
+                        uri: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${destination_longitude},${destination_latitude}&zoom=14&apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY}`
+                    }}
+                    className='w-[80px] h-[90px] rounded-lg'
+                />
 
                 <View className='flex gap-2 justify-center'>
                     <View className='flex flex-row items-center gap-2'>
@@ -33,6 +38,29 @@ const RideCard = ({ ride: {
                     </View>
                 </View>
             </View>
+
+            <View className='flex flex-row justify-between'>
+                <Text className='font-JakartaMedium text-md text-gray-500'>Date & Time</Text>
+                <Text className='font-JakartaMedium text-md text-gray-500'>{formatDate(created_at)} {", "} {formatTime(ride_time)}</Text>
+            </View>
+
+            <View className='flex flex-row justify-between'>
+                <Text className='font-JakartaMedium text-md text-gray-500'>Driver</Text>
+                <Text className='font-JakartaMedium text-md text-gray-500'>{driver.first_name}</Text>
+            </View>
+
+            <View className='flex flex-row justify-between'>
+                <Text className='font-JakartaMedium text-md text-gray-500'>Car Seats</Text>
+                <Text className='font-JakartaMedium text-md text-gray-500'>{driver.car_seats}</Text>
+            </View>
+
+            <View className='flex flex-row justify-between'>
+                <Text className='font-JakartaMedium text-md text-gray-500'>Payment Status</Text>
+                <Text className={`font-JakartaMedium capitalize text-md ${payment_status === 'paid' ? 'text-green-500' : 'text-gray-500'}`}>
+                    {payment_status}
+                </Text>
+            </View>
+
         </View>
     )
 }
