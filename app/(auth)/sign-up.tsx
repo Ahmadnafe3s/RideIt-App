@@ -2,7 +2,6 @@ import CustomButton from "@/components/custom-button";
 import InputField from "@/components/input-field";
 import OAuth from "@/components/OAuth";
 import { images } from "@/constants";
-import { UserApi } from "@/services/user";
 import { useSignUp } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
 import { LockKeyhole, Mail, MoveRight, UserRound } from "lucide-react-native";
@@ -52,8 +51,7 @@ const SignUp = () => {
       })
 
       if (signUpAttempt.status === 'complete') {
-        const res = await UserApi.createUser({ name: form.name, email: form.email, clerkId: signUpAttempt.createdSessionId! })
-        console.log(res)
+        // const res = await UserApi.createUser({ name: form.name, email: form.email, clerkId: signUpAttempt.createdSessionId! })
         await setActive({ session: signUpAttempt.createdSessionId })
         setVerification({ ...verification, status: 'success' })
       } else {

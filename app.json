@@ -24,7 +24,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/rideit-logo.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
@@ -64,6 +64,7 @@
       "eas": {
         "projectId": "a7855de3-d308-450a-bb60-6bbe115ef54a"
       }
-    }
+    },
+    "owner": "apex5767"
   }
 }

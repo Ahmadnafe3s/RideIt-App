@@ -144,7 +144,7 @@ const Home = () => {
 
             <Text className='text-2xl font-JakartaSemiBold'>Your current location</Text>
 
-            <View className='w-full h-[300px] bg-transparent'>
+            <View className='relative w-full h-[300px] bg-transparent'>
               <Map />
             </View>
 
