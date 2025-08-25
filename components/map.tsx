@@ -1,19 +1,40 @@
+import { calculateRegion } from "@/lib/map";
+import { useLocationStore } from "@/store/useLocationStore";
 import React from "react";
+import { Text, View } from "react-native";
 import MapView, { PROVIDER_DEFAULT } from "react-native-maps";
 
 export default function Map() {
+
+  const { userLatitude, userLongitude, destinationLatitude, destinationLongitude } = useLocationStore()
+
+  const region = calculateRegion({
+    userLatitude,
+    userLongitude,
+    destinationLatitude,
+    destinationLongitude
+  })
+
+  if (!region) {
+    return <Text>Loading map...</Text>
+  }
+
   return (
-    <MapView
-      className="flex-1 bg-green-500"
-      provider={PROVIDER_DEFAULT}
-      mapType="terrain"
-      style={{ flex: 1 }}
-      initialRegion={{
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }}
-    />
+    <View style={{ flex: 1, borderRadius: 16, overflow: "hidden" }}>
+      <MapView
+        style={{ flex: 1 }}
+        provider={PROVIDER_DEFAULT}
+        mapType="terrain"
+        tintColor="black"
+        showsPointsOfInterest={false}
+        showsUserLocation={true}
+        userInterfaceStyle="light"
+        initialRegion={region}
+      />
+
+      <View>
+
+      </View>
+    </View>
   );
 }

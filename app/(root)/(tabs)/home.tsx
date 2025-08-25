@@ -1,8 +1,11 @@
 import GoogleTextInput from '@/components/google-text-input';
 import Map from '@/components/map';
 import RideCard from '@/components/ride-card';
+import { useLocationStore } from '@/store/useLocationStore';
 import { useUser } from '@clerk/clerk-expo';
+import * as Location from 'expo-location';
 import { LogOut } from 'lucide-react-native';
+import { useEffect, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -108,8 +111,35 @@ const rides = [
 const Home = () => {
 
   const { user } = useUser()
+  const { setUserLocation, setDestinationLocation } = useLocationStore()
+  const [hasPermission, setHasPermission] = useState(false)
 
   const handleDestinationPress = () => { }
+
+  useEffect(() => {
+
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync()
+      if (status !== 'granted') {
+        setHasPermission(false)
+        return
+      }
+
+      const location = await Location.getCurrentPositionAsync()
+      const address = await Location.reverseGeocodeAsync({
+        latitude: location.coords?.latitude!,
+        longitude: location.coords?.longitude!
+      })
+
+      setUserLocation({
+        latitude: location.coords?.latitude!,
+        longitude: location.coords?.longitude!,
+        address: `${address[0].name} , ${address[0].region}`
+      })
+
+    })()
+
+  }, [])
 
   return (
     <SafeAreaView className='flex-1 bg-general-500'>
