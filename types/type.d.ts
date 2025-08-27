@@ -137,3 +137,40 @@ declare interface DriverCardProps {
     selected: number;
     setSelected: () => void;
 }
+
+
+declare interface placesAutocomplete {
+    predictions: {
+        reference: string;
+        types: string[];
+        matched_substrings: {
+            offset: number;
+            length: number;
+        }[];
+        terms: {
+            offset: number;
+            value: string;
+        }[];
+        structured_formatting: {
+            main_text_matched_substrings: {
+                offset: number;
+                length: number;
+            }[];
+            secondary_text_matched_substrings: {
+                offset: number;
+                length: number;
+            }[];
+            secondary_text: string;
+            main_text: string;
+        };
+        description: string;
+        geometry: {
+            location: {
+                lat: number;
+                lng: number;
+            };
+        };
+        place_id: string;
+        layer: string[];
+    }[];
+}

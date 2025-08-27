@@ -17,16 +17,12 @@ const SignIn = () => {
   const onSignInPress = useCallback(async () => {
     if (!isLoaded) return;
 
-    console.log(form);
-
     // Start the sign-in process using the email and password provided
     try {
       const signInAttempt = await signIn.create({
         identifier: form.email,
         password: form.password,
       });
-
-      console.log(signInAttempt);
 
       if (signInAttempt.status === "complete") {
         await setActive({ session: signInAttempt.createdSessionId });

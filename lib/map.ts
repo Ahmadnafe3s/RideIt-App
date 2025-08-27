@@ -2,6 +2,8 @@ import { Driver, MarkerData } from "@/types/type";
 
 const directionsAPI = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
 
+
+// creating mock markers next to user location
 export const generateMarkersFromData = ({
     data,
     userLatitude,

@@ -1,8 +1,10 @@
 import { ClerkProvider } from "@clerk/clerk-expo";
 import { tokenCache } from "@clerk/clerk-expo/token-cache";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import 'react-native-get-random-values';
 import "react-native-reanimated";
 import "../global.css";
 
@@ -30,14 +32,25 @@ export default function RootLayout() {
     return null;
   }
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+      },
+    },
+  });
+
   return (
     <ClerkProvider tokenCache={tokenCache}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(root)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ClerkProvider>
+      <QueryClientProvider client={queryClient}>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(root)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </QueryClientProvider>
+    </ClerkProvider >
   );
 }

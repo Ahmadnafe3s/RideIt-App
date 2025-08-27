@@ -16,7 +16,7 @@
     "ios": {
       "supportsTablet": true,
       "config": {
-        "googleMapsApiKey": "AIzaSyDqXnMKoYanax8TAT64DIpkv6f8pZ35JBA"
+        "googleMapsApiKey": "AIzaSyC1cRGjods79OHAFIu2_r3e-BQSxBxXmBo"
       },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "This app uses location to show your position on the map."
@@ -31,7 +31,7 @@
       "package": "com.anonymous.RideIt",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDqXnMKoYanax8TAT64DIpkv6f8pZ35JBA"
+          "apiKey": "AIzaSyC1cRGjods79OHAFIu2_r3e-BQSxBxXmBo"
         }
       },
       "permissions": [
