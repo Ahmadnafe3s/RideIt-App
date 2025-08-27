@@ -168,7 +168,6 @@ const Home = () => {
             </View>
 
             <GoogleTextInput
-              containerStyle='bg-white elevation-md elevation-neutral-300'
               handlePress={handleDestinationPress}
             />
 
