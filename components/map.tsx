@@ -56,6 +56,8 @@ export default function Map() {
     destinationLongitude,
   } = useLocationStore()
 
+  const { setDrivers } = useDriverStore()
+
   const { selectedDriver } = useDriverStore()
 
   const [markers, setMarkers] = useState<MarkerData[]>([])
@@ -68,6 +70,8 @@ export default function Map() {
   })
 
   useEffect(() => {
+    // TODO : Have to remove while real data is available
+    setDrivers(drivers as any);
     if (!Array.isArray(drivers)) return;
     if (!userLatitude || !userLongitude) return;
 
@@ -100,6 +104,7 @@ export default function Map() {
         showsUserLocation
         userInterfaceStyle="light"
         region={region}
+        zoomEnabled
       >
         {markers.map((marker, index) => (
           <Marker

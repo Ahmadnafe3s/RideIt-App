@@ -4,8 +4,9 @@ import RideCard from '@/components/ride-card';
 import { useLocationStore } from '@/store/useLocationStore';
 import { useUser } from '@clerk/clerk-expo';
 import * as Location from 'expo-location';
+import { useRouter } from 'expo-router';
 import { LogOut } from 'lucide-react-native';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -112,16 +113,20 @@ const Home = () => {
 
   const { user } = useUser()
   const { setUserLocation, setDestinationLocation } = useLocationStore()
-  const [hasPermission, setHasPermission] = useState(false)
+  // const [hasPermission, setHasPermission] = useState(false)
+  const router = useRouter()
 
-  const handleDestinationPress = () => { }
+  const handleDestinationPress = (location: { longitude: number, latitude: number, address: string }) => {
+    setDestinationLocation(location)
+    router.push('/(root)/find-rides')
+  }
 
   useEffect(() => {
 
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
-        setHasPermission(false)
+        // setHasPermission(false)
         return
       }
 
@@ -168,6 +173,7 @@ const Home = () => {
             </View>
 
             <GoogleTextInput
+              containerStyle='elevation-md elevation-neutral-300'
               handlePress={handleDestinationPress}
             />
 
