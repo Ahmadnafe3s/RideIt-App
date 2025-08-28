@@ -9,7 +9,7 @@ export const formatDate = (date: string) => {
 
 export function formatTime(minutes: number): string {
     const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
+    const remainingMinutes = Math.round(minutes % 60);
     return (hours && remainingMinutes) ? `${hours} h : ${remainingMinutes} m` : hours ? `${hours} h` : `${remainingMinutes} m`;
 }
 

@@ -1,8 +1,5 @@
 import { Driver, MarkerData } from "@/types/type";
 
-const directionsAPI = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
-
-
 // creating mock markers next to user location
 export const generateMarkersFromData = ({
     data,
@@ -69,6 +66,7 @@ export const calculateRegion = ({
     };
 };
 
+
 export const calculateDriverTimes = async ({
     markers,
     userLatitude,
@@ -93,20 +91,29 @@ export const calculateDriverTimes = async ({
     try {
         const timesPromises = markers.map(async (marker) => {
             const responseToUser = await fetch(
-                `https://maps.googleapis.com/maps/api/directions/json?origin=${marker.latitude},${marker.longitude}&destination=${userLatitude},${userLongitude}&key=${directionsAPI}`,
+                `https://api.olamaps.io/routing/v1/directions?origin=${marker.latitude},${marker.longitude}&destination=${userLatitude},${userLongitude}&api_key=${process.env.EXPO_PUBLIC_OLA_PLACES_API_KEY}`,
+                { method: "POST" }
             );
             const dataToUser = await responseToUser.json();
-            const timeToUser = dataToUser.routes[0].legs[0].duration.value; // Time in seconds
+            if (!dataToUser.routes?.[0]?.legs?.[0]) {
+                console.error("No route found to user:", dataToUser);
+                return null;
+            }
+            const timeToUser = dataToUser.routes[0].legs[0].duration; // seconds
 
             const responseToDestination = await fetch(
-                `https://maps.googleapis.com/maps/api/directions/json?origin=${userLatitude},${userLongitude}&destination=${destinationLatitude},${destinationLongitude}&key=${directionsAPI}`,
+                `https://api.olamaps.io/routing/v1/directions?origin=${userLatitude},${userLongitude}&destination=${destinationLatitude},${destinationLongitude}&api_key=${process.env.EXPO_PUBLIC_OLA_PLACES_API_KEY}`,
+                { method: "POST" }
             );
             const dataToDestination = await responseToDestination.json();
-            const timeToDestination =
-                dataToDestination.routes[0].legs[0].duration.value; // Time in seconds
+            if (!dataToDestination.routes?.[0]?.legs?.[0]) {
+                console.error("No route found to destination:", dataToDestination);
+                return null;
+            }
+            const timeToDestination = dataToDestination.routes[0].legs[0].duration;
 
-            const totalTime = (timeToUser + timeToDestination) / 60; // Total time in minutes
-            const price = (totalTime * 0.5).toFixed(2); // Calculate price based on time
+            const totalTime = (timeToUser + timeToDestination) / 60; // minutes
+            const price = (totalTime * 0.5).toFixed(2);
 
             return { ...marker, time: totalTime, price };
         });
