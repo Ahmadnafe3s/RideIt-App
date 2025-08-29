@@ -1,13 +1,15 @@
 import { icons } from "@/constants"
 import { calculateDriverTimes, calculateRegion, generateMarkersFromData } from "@/lib/map"
+import { getDirections } from "@/services/drirections"
 import { DriverService } from "@/services/driver"
 import { useDriverStore } from "@/store/useDriverStore"
 import { useLocationStore } from "@/store/useLocationStore"
 import { MarkerData } from "@/types/type"
+import polyline from "@mapbox/polyline"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useState } from "react"
 import { ActivityIndicator, Text, View } from "react-native"
-import MapView, { Marker, PROVIDER_DEFAULT } from "react-native-maps"
+import MapView, { Marker, Polyline, PROVIDER_DEFAULT } from "react-native-maps"
 
 
 export default function Map() {
@@ -37,6 +39,24 @@ export default function Map() {
     queryFn: () => DriverService.getDrivers(),
   })
 
+
+  const { data: directions, isLoading: isLoadingDirections } = useQuery({
+    queryKey: ['directions', userLatitude, userLongitude, destinationLatitude, destinationLongitude],
+    queryFn: () =>
+      getDirections(
+        { latitude: userLatitude!, longitude: userLongitude! },
+        { latitude: destinationLatitude!, longitude: destinationLongitude! }
+      ),
+    enabled: !!(destinationLatitude && destinationLongitude)
+  });
+
+
+  const decodedCoords = directions?.routes?.[0]?.overview_polyline
+    ? polyline.decode(directions.routes[0].overview_polyline).map(([lat, lng]) => ({
+      latitude: lat,
+      longitude: lng,
+    }))
+    : [];
 
   useEffect(() => {
     if (!Array.isArray(drivers)) return;
@@ -68,7 +88,8 @@ export default function Map() {
 
 
 
-  if (!region || isLoading) {
+
+  if (!region || isLoading || isLoadingDirections) {
     return (
       <View className="flex-1 bg-white/50 justify-center items-center rounded-2xl">
         <ActivityIndicator size={40} color="black" />
@@ -107,6 +128,24 @@ export default function Map() {
             image={selectedDriver === marker._id ? icons.selectedMarker : icons.marker}
           />
         ))}
+
+
+        {(destinationLatitude && destinationLongitude) &&
+          <>
+            <Marker
+              key='destination'
+              coordinate={{ latitude: destinationLatitude, longitude: destinationLongitude }}
+              title="Destination"
+              image={icons.pin}
+            />
+
+            <Polyline
+              coordinates={decodedCoords}
+              strokeColor="black"
+              strokeWidth={1}
+            />
+          </>
+        }
       </MapView>
     </View>
   )

@@ -7,10 +7,13 @@ import { icons } from "@/constants";
 import { useDriverStore } from "@/store/useDriverStore";
 import { useLocationStore } from "@/store/useLocationStore";
 import { formatTime } from "@/utils/formatter";
+import { useState } from "react";
+import Payment from "@/components/payment";
 
 const BookRide = () => {
     const { user } = useUser();
-    const { userAddress, destinationAddress } = useLocationStore();
+    const [isPayment, setIsPayment] = useState(false)
+    const { userAddress, destinationAddress, userLatitude, userLongitude, destinationLatitude, destinationLongitude } = useLocationStore();
     const { drivers, selectedDriver } = useDriverStore();
 
     const driverDetails = drivers?.filter(
@@ -94,8 +97,31 @@ const BookRide = () => {
                 <CustomButton
                     title="Confirm Ride"
                     className="mt-10"
+                    onPress={() => setIsPayment(true)}
                 />
+
+
+                <Payment
+                    isPayment={isPayment}
+                    amount={Number(driverDetails?.price)}
+                    data={{
+                        user_id: user?.id!,
+                        driver_id: selectedDriver!,
+                        destination_address: destinationAddress!,
+                        origin_address: userAddress!,
+                        origin_latitude: userLatitude!,
+                        origin_longitude: userLongitude!,
+                        destination_latitude: destinationLatitude!,
+                        destination_longitude: destinationLongitude!,
+                        fare_price: Number(driverDetails?.price),
+                        ride_time: driverDetails?.time!,
+                        payment_status: "paid"
+                    }}
+                    onPaymentConfirmed={() => { setIsPayment(false) }}
+                />
+
             </>
+
         </RideLauout>
     );
 };

@@ -171,3 +171,18 @@ declare type placesAutocomplete = {
   place_id: string;
   layer: string[];
 }[];
+
+
+declare interface CreateRide {
+  origin_address: string;
+  destination_address: string;
+  origin_latitude: number;
+  origin_longitude: number;
+  destination_latitude: number;
+  destination_longitude: number;
+  ride_time: number; // seconds or minutes
+  fare_price: number;
+  payment_status: "pending" | "paid" | "failed";
+  driver_id: string;
+  user_id: string;
+};

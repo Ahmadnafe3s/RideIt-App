@@ -91,7 +91,7 @@ export const calculateDriverTimes = async ({
     try {
         const timesPromises = markers.map(async (marker) => {
             const responseToUser = await fetch(
-                `https://api.olamaps.io/routing/v1/directions?origin=${marker.latitude},${marker.longitude}&destination=${userLatitude},${userLongitude}&api_key=${process.env.EXPO_PUBLIC_OLA_PLACES_API_KEY}`,
+                `https://api.olamaps.io/routing/v1/directions?origin=${marker.latitude},${marker.longitude}&destination=${userLatitude},${userLongitude}&api_key=${process.env.EXPO_PUBLIC_OLA_MAPS_API_KEY}`,
                 { method: "POST" }
             );
             const dataToUser = await responseToUser.json();
@@ -102,7 +102,7 @@ export const calculateDriverTimes = async ({
             const timeToUser = dataToUser.routes[0].legs[0].duration; // seconds
 
             const responseToDestination = await fetch(
-                `https://api.olamaps.io/routing/v1/directions?origin=${userLatitude},${userLongitude}&destination=${destinationLatitude},${destinationLongitude}&api_key=${process.env.EXPO_PUBLIC_OLA_PLACES_API_KEY}`,
+                `https://api.olamaps.io/routing/v1/directions?origin=${userLatitude},${userLongitude}&destination=${destinationLatitude},${destinationLongitude}&api_key=${process.env.EXPO_PUBLIC_OLA_MAPS_API_KEY}`,
                 { method: "POST" }
             );
             const dataToDestination = await responseToDestination.json();
