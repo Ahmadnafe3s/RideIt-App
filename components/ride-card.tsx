@@ -12,7 +12,7 @@ const RideCard = ({ ride: {
     ride_time,
     destination_address,
     payment_status,
-    created_at,
+    createdAt,
 } }: { ride: Ride }) => {
 
 
@@ -27,7 +27,7 @@ const RideCard = ({ ride: {
                     className='w-[80px] h-[90px] rounded-lg'
                 />
 
-                <View className='flex gap-2 justify-center'>
+                <View className='flex-1 gap-2 justify-center'>
                     <View className='flex flex-row items-center gap-2'>
                         <Image source={icons.to} className='w-6 h-6' />
                         <Text className='text-md font-JakartaMedium'>{origin_address}</Text>
@@ -41,7 +41,7 @@ const RideCard = ({ ride: {
 
             <View className='flex flex-row justify-between'>
                 <Text className='font-JakartaMedium text-md text-gray-500'>Date & Time</Text>
-                <Text className='font-JakartaMedium text-md text-gray-500'>{formatDate(created_at)} {", "} {formatTime(ride_time)}</Text>
+                <Text className='font-JakartaMedium text-md text-gray-500'>{formatDate(createdAt)} {", "} {formatTime(ride_time)}</Text>
             </View>
 
             <View className='flex flex-row justify-between'>

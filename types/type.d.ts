@@ -34,6 +34,7 @@ declare interface MapProps {
 }
 
 declare interface Ride {
+  _id: string;
   origin_address: string;
   destination_address: string;
   origin_latitude: number;
@@ -42,16 +43,19 @@ declare interface Ride {
   destination_longitude: number;
   ride_time: number;
   fare_price: number;
-  payment_status: string;
-  driver_id: number;
-  user_email: string;
-  created_at: string;
+  payment_status: "paid" | "unpaid" | "pending";
+  driver_id: string;
+  user_id: string;
+  createdAt: string;
+  updatedAt: string;
   driver: {
+    _id: string;
     first_name: string;
     last_name: string;
     car_seats: number;
   };
 }
+
 
 declare interface ButtonProps extends TouchableOpacityProps {
   title: string;

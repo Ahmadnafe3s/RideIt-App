@@ -1,20 +1,28 @@
 import { icons } from '@/constants'
+import useOAuth from '@/utils/oAuth'
+import { useRouter } from 'expo-router'
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Alert, Image, Text, View } from 'react-native'
 import CustomButton from './custom-button'
-import AxiosInstance from '@/lib/axios'
+
 
 
 const OAuth = () => {
 
+    const { handleOAuth } = useOAuth()
+    const router = useRouter()
+
     const handleOAuthSignIn = async () => {
-        console.log('OAuth Sign In')
         try {
-            const res = await AxiosInstance.get('/')
-            console.log(res.data)
-        } catch (error) {
-            console.log(error)
+            const result = await handleOAuth()
+            if (result.code === 'session_exists') {
+                Alert.alert('Success', 'You have already signed in')
+                router.push('/(root)/(tabs)/home')
+            }
+        } catch (error: any) {
+            console.log(error.message)
         }
+
     }
 
     return (

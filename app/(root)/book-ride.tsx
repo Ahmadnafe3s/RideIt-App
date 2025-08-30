@@ -85,7 +85,7 @@ const BookRide = () => {
                         </Text>
                     </View>
 
-                    <View className="flex flex-row items-center justify-start border-b border-general-700 w-full py-3">
+                    <View className="flex  flex-row items-center justify-start border-b border-general-700 w-full py-3">
                         <Image source={icons.point} className="w-6 h-6" />
                         <Text className="text-lg font-JakartaRegular ml-2">
                             {destinationAddress}
@@ -117,7 +117,6 @@ const BookRide = () => {
                         ride_time: driverDetails?.time!,
                         payment_status: "paid"
                     }}
-                    onPaymentConfirmed={() => { setIsPayment(false) }}
                 />
 
             </>
