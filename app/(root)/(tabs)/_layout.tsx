@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Bike, CircleUserRound, House, MessageCircleDashed } from "lucide-react-native";
+import { Bike, CircleUserRound, House } from "lucide-react-native";
 import React, { ComponentType } from "react";
 import { View } from "react-native";
 
@@ -7,7 +7,7 @@ const Layout = () => {
 
   const TabIcon = ({ focused, Icon }: { focused: boolean, Icon: ComponentType<any> }) => {
     return (
-      <View className={`p-3 rounded-full ${focused && 'bg-green-600'}`}>
+      <View className={`p-3 rounded-full ${focused && 'bg-yellow-600'}`}>
         <Icon size={32} color="white" />
       </View>
     )
@@ -47,12 +47,6 @@ const Layout = () => {
         title: 'Rides',
         headerShown: false,
         tabBarIcon: ({ focused }) => <TabIcon focused={focused} Icon={Bike} />
-      }} />
-
-      <Tabs.Screen name="chat" options={{
-        title: 'Chat',
-        headerShown: false,
-        tabBarIcon: ({ focused }) => <TabIcon focused={focused} Icon={MessageCircleDashed} />
       }} />
 
       <Tabs.Screen name="profile" options={{

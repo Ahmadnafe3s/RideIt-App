@@ -31,12 +31,12 @@ const CustomButton = ({
 }: CustomButtonProps) => {
   // Variant styles
   const variants = {
-    primary: "bg-blue-500 active:bg-blue-600",
+    primary: "bg-yellow-500 active:bg-yellow-600",
     secondary: "bg-gray-500 active:bg-gray-600",
     success: "bg-green-500 active:bg-green-600",
     danger: "bg-red-500 active:bg-red-600",
     outlined: "bg-transparent border border-gray-200 active:bg-gray-100",
-    ghost : 'bg-transparent hover:bg-blue-50 active:bg-gray-100',
+    ghost : 'bg-transparent hover:bg-yellow-50 active:bg-gray-100',
   };
 
   // Text colors

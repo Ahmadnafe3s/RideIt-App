@@ -6,7 +6,9 @@ import { ActivityIndicator, FlatList, Image, RefreshControl, Text, View } from "
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Rides = () => {
+
   const { rides, fetchNextPage, hasNextPage, refetch, isLoading, isFetchingNextPage } = useRides()
+
   return (
     <SafeAreaView>
       <FlatList
