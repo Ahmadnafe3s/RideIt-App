@@ -30,11 +30,11 @@ const RideCard = ({ ride: {
                 <View className='flex-1 gap-2 justify-center'>
                     <View className='flex flex-row items-center gap-2'>
                         <Image source={icons.to} className='w-6 h-6' />
-                        <Text className='text-md font-JakartaMedium'>{origin_address}</Text>
+                        <Text className='text-md font-JakartaMedium mr-2'>{origin_address}</Text>
                     </View>
                     <View className='flex flex-row items-center gap-2'>
                         <Image source={icons.point} className='w-6 h-6' />
-                        <Text className='text-md font-JakartaMedium'>{destination_address}</Text>
+                        <Text className='text-md font-JakartaMedium mr-2'>{destination_address}</Text>
                     </View>
                 </View>
             </View>

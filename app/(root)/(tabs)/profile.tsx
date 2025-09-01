@@ -23,8 +23,6 @@ const Profile = () => {
               user?.firstName ? (
                 <>
                   <Text className="text-lg font-JakartaRegular text-blue-600">{user?.firstName}</Text>
-                  <Text>{" "}</Text>
-                  <Text className="text-lg font-JakartaRegular text-blue-600">{user?.lastName}</Text>
                 </>
               ) : (
                 <Text className="text-lg font-JakartaSemiBold text-blue-600">
@@ -42,8 +40,6 @@ const Profile = () => {
                 user?.firstName ? (
                   <>
                     <Text className="text-lg font-JakartaRegular">{user?.firstName}</Text>
-                    <Text>{" "}</Text>
-                    <Text className="text-lg font-JakartaRegular">{user?.lastName}</Text>
                   </>
                 ) : (
                   <Text className="text-lg font-JakartaSemiBold">

@@ -28,6 +28,8 @@ const SignUp = () => {
     // Start sign-up process using email and password provided
     try {
       await signUp.create({
+        firstName: form.name,
+        lastName: form.name,
         emailAddress: form.email,
         password: form.password,
       })
@@ -51,7 +53,6 @@ const SignUp = () => {
       })
 
       if (signUpAttempt.status === 'complete') {
-        // const res = await UserApi.createUser({ name: form.name, email: form.email, clerkId: signUpAttempt.createdSessionId! })
         await setActive({ session: signUpAttempt.createdSessionId })
         setVerification({ ...verification, status: 'success' })
       } else {
@@ -97,7 +98,8 @@ const SignUp = () => {
           />
 
           {/* Sign Up Button */}
-          <CustomButton title="Sign Up" className="mt-5" onPress={onSignUpPress} />
+          <CustomButton title="Sign Up" className="mt-5" onPress={onSignUpPress}
+          />
 
           {/* OAuth */}
 
@@ -115,7 +117,7 @@ const SignUp = () => {
           <ReactNativeModal isVisible={verification.status === 'pending'} onModalHide={() => { if (verification.status === 'success') setIsSuccessModal(true) }}>
             <View className="min-h-[300px] bg-white rounded-3xl px-7 py-9">
               <Text className="text-2xl font-JakartaBold">Verification</Text>
-              <Text className="text-base font-JakartaRegular mt-2 mb-5 text-gray-400">We&apos;ve sent a verification code to {form.email}</Text>
+              <Text className="text-base font-JakartaRegular mt-2 mb-5 text-gray-400" >We&apos;ve sent a verification code to {form.email}</Text>
               <InputField
                 label="Code"
                 Icon={LockKeyhole}

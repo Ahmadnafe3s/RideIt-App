@@ -31,7 +31,7 @@ const InputField = ({
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View className='my-2 w-full'>
-                    <Text className={`text-lg mb-2 text-black font-JakartaRegular ${labelStyle}`}>
+                    <Text className={`text-lg mb-2 !text-black font-JakartaRegular ${labelStyle}`}>
                         {label}
                     </Text>
                     <View className={`
@@ -43,7 +43,7 @@ const InputField = ({
                             <Icon size={iconStyle?.size || 24} color={iconStyle?.color || '#000'} />
                         )}
                         <TextInput
-                            className={`flex-1 py-4 font-JakartaSemiBold text-[15px] text-left placeholder:text-secondary-400 ${inputStyle}`}
+                            className={`flex-1 py-4 font-JakartaSemiBold text-[15px] text-black text-left placeholder:text-secondary-400 ${inputStyle}`}
                             secureTextEntry={secureTextEntry}
                             placeholder={placeholder}
                             onFocus={() => setIsFocused(true)}
