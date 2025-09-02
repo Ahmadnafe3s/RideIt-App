@@ -114,7 +114,7 @@ const Home = () => {
         }
 
         refreshControl={
-          <RefreshControl onRefresh={refetch} refreshing={isLoading} />
+          <RefreshControl onRefresh={refetch} refreshing={isLoading && (rides.length > 0)} />
         }
 
         onEndReached={() => {

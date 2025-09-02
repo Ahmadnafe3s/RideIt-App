@@ -8,7 +8,7 @@ import { MarkerData } from "@/types/type"
 import polyline from "@mapbox/polyline"
 import { useQuery } from "@tanstack/react-query"
 import React, { useEffect, useState } from "react"
-import { ActivityIndicator, Text, View } from "react-native"
+import { ActivityIndicator, Image, Text, View } from "react-native"
 import MapView, { Marker, Polyline, PROVIDER_DEFAULT } from "react-native-maps"
 
 
@@ -125,8 +125,13 @@ export default function Map() {
             key={index}
             coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
             title={marker.title}
-            image={selectedDriver === marker._id ? icons.selectedMarker : icons.marker}
-          />
+          >
+            <Image
+              source={selectedDriver === marker._id ? icons.selectedMarker : icons.marker}
+              style={{ width: 20, height: 20 }} // adjust size here
+              resizeMode="contain"
+            />
+          </Marker>
         ))}
 
 
@@ -137,7 +142,13 @@ export default function Map() {
               coordinate={{ latitude: destinationLatitude, longitude: destinationLongitude }}
               title="Destination"
               image={icons.pin}
-            />
+            >
+              <Image
+                source={icons.pin}
+                style={{ width: 20, height: 20 }} // adjust size here
+                resizeMode="contain"
+              />
+            </Marker>
 
             <Polyline
               coordinates={decodedCoords}
@@ -147,6 +158,6 @@ export default function Map() {
           </>
         }
       </MapView>
-    </View>
+    </View >
   )
 }

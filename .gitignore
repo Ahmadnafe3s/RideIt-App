@@ -41,5 +41,5 @@ app-example
 /app/generated/prisma
 
 
-./ios
-./android
+ios
+android

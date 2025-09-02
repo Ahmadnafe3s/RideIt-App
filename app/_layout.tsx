@@ -41,8 +41,10 @@ export default function RootLayout() {
     },
   });
 
+  console.log(process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY)
+
   return (
-    <ClerkProvider tokenCache={tokenCache}>
+    <ClerkProvider tokenCache={tokenCache} publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!} >
       <QueryClientProvider client={queryClient}>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
