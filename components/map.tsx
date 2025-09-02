@@ -89,7 +89,7 @@ export default function Map() {
 
 
 
-  if (!region || isLoading || isLoadingDirections) {
+  if (!region || isLoading) {
     return (
       <View className="flex-1 bg-white/50 justify-center items-center rounded-2xl">
         <ActivityIndicator size={40} color="black" />
@@ -128,7 +128,7 @@ export default function Map() {
           >
             <Image
               source={selectedDriver === marker._id ? icons.selectedMarker : icons.marker}
-              style={{ width: 20, height: 20 }} // adjust size here
+              style={{ width: 24, height: 24 }} // adjust size here
               resizeMode="contain"
             />
           </Marker>
@@ -141,11 +141,10 @@ export default function Map() {
               key='destination'
               coordinate={{ latitude: destinationLatitude, longitude: destinationLongitude }}
               title="Destination"
-              image={icons.pin}
             >
               <Image
                 source={icons.pin}
-                style={{ width: 20, height: 20 }} // adjust size here
+                style={{ width: 24, height: 24 }} // adjust size here
                 resizeMode="contain"
               />
             </Marker>
