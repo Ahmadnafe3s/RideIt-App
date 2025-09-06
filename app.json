@@ -10,8 +10,9 @@
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "resizeMode": "cover",
+      "imageWidth": 200
     },
     "ios": {
       "supportsTablet": true,
@@ -50,8 +51,9 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/splash.png",
+          "backgroundColor": "#ffffff",
           "resizeMode": "cover",
-          "backgroundColor": "#ffffff"
+          "imageWidth": 200
         }
       ],
       "expo-secure-store"

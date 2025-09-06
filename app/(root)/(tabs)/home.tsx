@@ -79,17 +79,12 @@ const Home = () => {
           <View className='flex gap-5'>
             <View className='mt-5 flex flex-row justify-between'>
 
-              {
-                user?.firstName ? (
-                  <Text className='text-2xl font-JakartaSemiBold'>
-                    Welcome, {user?.firstName} 👋
-                  </Text>
-                ) : (
-                  <Text className='text-2xl font-JakartaSemiBold'>
-                    Welcome, {user?.emailAddresses[0].emailAddress.split('@')[0]} 👋
-                  </Text>
-                )
-              }
+              <TouchableOpacity className='flex flex-row items-center' onPress={() => router.push('/(root)/(tabs)/profile')}>
+                <Image source={{ uri: user?.imageUrl }} className='w-10 h-10 rounded-full' />
+                <Text className='text-2xl font-JakartaSemiBold ml-2'>
+                  {user?.firstName}
+                </Text>
+              </TouchableOpacity>
 
               <TouchableOpacity onPress={handleSignOut}>
                 <LogOut color="gray" />
@@ -101,13 +96,11 @@ const Home = () => {
               handlePress={handleDestinationPress}
             />
 
-            <Text className='text-2xl font-JakartaSemiBold'>Your current location</Text>
-
             <View className='relative w-full h-[300px] bg-transparent'>
               <Map />
             </View>
 
-            <Text className='text-xl font-JakartaBold'>
+            <Text className='text-xl font-JakartaBold text-gray-700'>
               Recent Rides
             </Text>
           </View>
